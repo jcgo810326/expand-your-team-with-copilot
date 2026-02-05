@@ -475,7 +475,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to create social share buttons
   function createSocialShareButtons(activityName, description, schedule) {
     const shareUrl = window.location.href;
-    const shareText = `Check out ${activityName} at Mergington High School! ${description} Schedule: ${schedule}`;
+    // Truncate description for social media sharing to avoid character limits
+    const truncatedDescription = description.length > 100 ? description.substring(0, 97) + '...' : description;
+    const shareText = `Check out ${activityName} at Mergington High School! ${truncatedDescription} Schedule: ${schedule}`;
     
     return `
       <div class="social-share-container">
