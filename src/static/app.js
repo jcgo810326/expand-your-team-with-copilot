@@ -472,6 +472,48 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Function to create social share buttons
+  function createSocialShareButtons(activityName, description, schedule) {
+    const shareUrl = window.location.href;
+    const shareText = `Check out ${activityName} at Mergington High School! ${description} Schedule: ${schedule}`;
+    
+    return `
+      <div class="social-share-container">
+        <span class="share-label">Share:</span>
+        <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="share-button twitter"
+           title="Share on Twitter"
+           aria-label="Share on Twitter">
+          𝕏
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="share-button facebook"
+           title="Share on Facebook"
+           aria-label="Share on Facebook">
+          f
+        </a>
+        <a href="https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}" 
+           target="_blank" 
+           rel="noopener noreferrer" 
+           class="share-button whatsapp"
+           title="Share on WhatsApp"
+           aria-label="Share on WhatsApp">
+          ✆
+        </a>
+        <a href="mailto:?subject=${encodeURIComponent('Activity at Mergington High School: ' + activityName)}&body=${encodeURIComponent(shareText + '\n\n' + shareUrl)}" 
+           class="share-button email"
+           title="Share via Email"
+           aria-label="Share via Email">
+          ✉
+        </a>
+      </div>
+    `;
+  }
+
   // Function to render a single activity card
   function renderActivityCard(name, details) {
     const activityCard = document.createElement("div");
@@ -519,6 +561,9 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
     `;
 
+    // Create social share buttons
+    const socialShareButtons = createSocialShareButtons(name, details.description, formattedSchedule);
+
     activityCard.innerHTML = `
       ${tagHtml}
       <h4>${name}</h4>
@@ -528,6 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <span class="tooltip-text">Regular meetings at this time throughout the semester</span>
       </p>
       ${capacityIndicator}
+      ${socialShareButtons}
       <div class="participants-list">
         <h5>Current Participants:</h5>
         <ul>
